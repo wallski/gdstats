@@ -1,7 +1,7 @@
 import { useState, useCallback, useRef } from "react";
 import { PlayerSearchResult, PlayerProfile } from "../types";
 
-const API_BASE = "http://localhost:8080";
+const API_BASE = "https://spouse-regulatory-red-films.trycloudflare.com";
 
 export function usePlayerSearch() {
   const [results, setResults] = useState<PlayerSearchResult[]>([]);
