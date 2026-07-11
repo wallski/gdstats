@@ -17,7 +17,8 @@ export function PlayerIcon({
   size = 140,
   form = "cube",
 }: PlayerIconProps) {
-  const iconUrl = `http://localhost:8080/api/icon/${form}/${icon}?col1=${color1}&col2=${color2}&glow=${glow ? 1 : 0}`;
+  const API_BASE = "https://tyler-gamma-thumbnail-serum.trycloudflare.com";
+  const iconUrl = `${API_BASE}/api/icon/${form}/${icon}?col1=${color1}&col2=${color2}&glow=${glow ? 1 : 0}`;
 
   return (
     <motion.div
