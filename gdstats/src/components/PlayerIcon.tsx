@@ -9,6 +9,8 @@ interface PlayerIconProps {
   form?: string;
 }
 
+const API_BASE = "https://tyler-gamma-thumbnail-serum.trycloudflare.com";
+
 export function PlayerIcon({
   icon = 1,
   color1 = 0,
@@ -17,25 +19,21 @@ export function PlayerIcon({
   size = 140,
   form = "cube",
 }: PlayerIconProps) {
-  const API_BASE = "https://tyler-gamma-thumbnail-serum.trycloudflare.com";
   const iconUrl = `${API_BASE}/api/icon/${form}/${icon}?col1=${color1}&col2=${color2}&glow=${glow ? 1 : 0}`;
 
   return (
     <motion.div
-      className="relative"
+      className="relative flex items-center justify-center"
+      style={{ width: size + 24, height: size + 24 }}
       animate={{ y: [0, -10, 0] }}
       transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
     >
       {glow && (
         <motion.div
-          className="absolute inset-0 rounded-full blur-2xl"
+          className="absolute rounded-full blur-2xl"
           style={{
             width: size * 1.4,
             height: size * 1.4,
-            left: "50%",
-            top: "50%",
-            marginLeft: -(size * 1.4) / 2,
-            marginTop: -(size * 1.4) / 2,
             background: "radial-gradient(circle, rgba(168,85,247,0.25), transparent 70%)",
           }}
           animate={{
@@ -50,8 +48,7 @@ export function PlayerIcon({
         width={size + 24}
         height={size + 24}
         viewBox={`0 0 ${size + 24} ${size + 24}`}
-        className="relative z-10"
-        style={{ margin: "-12px" }}
+        className="absolute z-10"
       >
         <defs>
           <linearGradient id="hexGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -77,7 +74,7 @@ export function PlayerIcon({
       </svg>
 
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-xl flex items-center justify-center overflow-hidden"
+        className="relative z-20 rounded-xl flex items-center justify-center overflow-hidden"
         style={{
           width: size,
           height: size,

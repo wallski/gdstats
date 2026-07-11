@@ -95,7 +95,7 @@ export function ProfilePage({ profile, loading, error, fetchProfile }: ProfilePa
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, type: "spring", stiffness: 100 }}
-            className="flex-shrink-0 mb-8 lg:mb-0"
+            className="flex-shrink-0 mb-8 lg:mb-0 flex justify-center lg:justify-start"
           >
             <PlayerIcon
               icon={profile.icon}
