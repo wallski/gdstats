@@ -55,7 +55,7 @@ export function LandingPage({ searchFn, results, loading, error }: LandingPagePr
           transition={{ duration: 0.6, delay: 0.4 }}
           className="text-base sm:text-lg text-purple-200/40 max-w-md mb-12 leading-relaxed"
         >
-          Search any player. View real-time stats, rankings, and level data.
+          Search any player by name. View stars, demons, diamonds, coins, and icon collection. Data pulled live from Geometry Dash servers.
         </motion.p>
 
         <motion.div
@@ -80,10 +80,10 @@ export function LandingPage({ searchFn, results, loading, error }: LandingPagePr
           className="flex flex-wrap gap-3"
         >
           {[
-            { label: "LIVE STATS", color: "#A855F7" },
-            { label: "LEADERBOARDS", color: "#06B6D4" },
-            { label: "LEVEL DATA", color: "#EC4899" },
-            { label: "REAL-TIME", color: "#FBBF24" },
+            { label: "LIVE SEARCH", color: "#A855F7" },
+            { label: "PLAYER STATS", color: "#06B6D4" },
+            { label: "ICON PREVIEW", color: "#EC4899" },
+            { label: "GD 2.2", color: "#FBBF24" },
           ].map((item, i) => (
             <motion.div
               key={item.label}
@@ -111,9 +111,9 @@ export function LandingPage({ searchFn, results, loading, error }: LandingPagePr
         className="fixed bottom-12 right-6 sm:right-12 text-right hidden sm:block"
       >
         <div className="font-mono text-[10px] text-purple-400/20 leading-relaxed">
-          <div>PLAYERS INDEXED: --</div>
-          <div>LEVELS TRACKED: --</div>
-          <div>LAST SYNC: --</div>
+          <div>DATA SOURCE: BOOMLINGS.COM</div>
+          <div>BACKEND: GO</div>
+          <div>FRONTEND: REACT + VITE</div>
         </div>
       </motion.div>
     </div>
