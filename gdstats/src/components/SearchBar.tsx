@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, KeyboardEvent } from "react";
+﻿import { useState, useRef, useEffect, KeyboardEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, Loader2, Star, Skull } from "lucide-react";
 import { PlayerSearchResult } from "../types";
@@ -165,7 +165,7 @@ export function SearchBar({
                   style={{ border: "1px solid rgba(168,85,247,0.2)" }}
                 >
                   <img
-                    src={`https://tyler-gamma-thumbnail-serum.trycloudflare.com/api/icon/cube/${player.icon}?col1=${player.color1}&col2=${player.color2}&glow=0`}
+                    src={`https://could-constant-felt-gaming.trycloudflare.com/api/icon/cube/${player.icon}?col1=${player.color1}&col2=${player.color2}&glow=0`}
                     alt={player.playerName}
                     className="w-8 h-8 object-contain"
                     style={{ imageRendering: "pixelated" }}

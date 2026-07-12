@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+﻿import { motion } from "framer-motion";
 
 interface PlayerIconProps {
   icon?: number;
@@ -9,7 +9,7 @@ interface PlayerIconProps {
   form?: string;
 }
 
-const API_BASE = "https://tyler-gamma-thumbnail-serum.trycloudflare.com";
+const API_BASE = "https://could-constant-felt-gaming.trycloudflare.com";
 
 export function PlayerIcon({
   icon = 1,
