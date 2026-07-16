@@ -1,7 +1,7 @@
 ﻿import { useState, useCallback, useRef } from "react";
 import { PlayerSearchResult, PlayerProfile } from "../types";
 
-const API_BASE = "https://streams-junior-browser-dis.trycloudflare.com";
+const API_BASE = "https://firewall-textbooks-reminder-liability.trycloudflare.com";
 
 export function usePlayerSearch() {
   const [results, setResults] = useState<PlayerSearchResult[]>([]);

@@ -165,7 +165,7 @@ export function SearchBar({
                   style={{ border: "1px solid rgba(168,85,247,0.2)" }}
                 >
                   <img
-                    src={`https://streams-junior-browser-dis.trycloudflare.com/api/icon/cube/${player.icon}?col1=${player.color1}&col2=${player.color2}&glow=0`}
+                    src={`https://firewall-textbooks-reminder-liability.trycloudflare.com/api/icon/cube/${player.icon}?col1=${player.color1}&col2=${player.color2}&glow=0`}
                     alt={player.playerName}
                     className="w-8 h-8 object-contain"
                     style={{ imageRendering: "pixelated" }}

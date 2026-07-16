@@ -9,7 +9,7 @@ interface PlayerIconProps {
   form?: string;
 }
 
-const API_BASE = "https://streams-junior-browser-dis.trycloudflare.com";
+const API_BASE = "https://firewall-textbooks-reminder-liability.trycloudflare.com";
 
 export function PlayerIcon({
   icon = 1,
