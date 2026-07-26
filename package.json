@@ -1,0 +1,7 @@
+{
+  "name": "gdstats-monorepo",
+  "private": true,
+  "scripts": {
+    "build": "cd gdstats && npm install && npm run build"
+  }
+}
