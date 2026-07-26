@@ -10,7 +10,7 @@ import (
 	lib "github.com/wallski/gdstats/lib"
 )
 
-// Handler serves /api/profile/[id].
+// Handler serves /api/profile and /api/profile/:id
 func Handler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "GET, OPTIONS")
@@ -20,20 +20,15 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var accountID int
+	path := strings.TrimPrefix(r.URL.Path, "/api/profile")
+	path = strings.Trim(path, "/")
 
-	idSlice := r.URL.Query()["id"]
-	if len(idSlice) > 0 {
-		accountID, _ = strconv.Atoi(idSlice[0])
+	if path == "" {
+		path = r.URL.Query().Get("id")
 	}
 
-	if accountID == 0 {
-		pathStr := strings.TrimPrefix(r.URL.Path, "/api/profile/")
-		pathStr = strings.Trim(pathStr, "/")
-		accountID, _ = strconv.Atoi(pathStr)
-	}
-
-	if accountID == 0 {
+	accountID, err := strconv.Atoi(path)
+	if err != nil || accountID == 0 {
 		http.Error(w, `{"error":"invalid account ID"}`, http.StatusBadRequest)
 		return
 	}

@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-// Handler serves /api/icon/[...path].
+// Handler serves /api/icon and /api/icon/:form/:id
 func Handler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "GET, OPTIONS")
@@ -18,37 +18,17 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var form, iconID string
+	path := strings.TrimPrefix(r.URL.Path, "/api/icon")
+	path = strings.Trim(path, "/")
 
-	// Method 1: Try path array from Vercel query string (?path=cube&path=457)
-	pathSlice := r.URL.Query()["path"]
-	if len(pathSlice) >= 2 {
-		form = pathSlice[0]
-		iconID = pathSlice[1]
-	} else if len(pathSlice) == 1 {
-		pParts := strings.Split(strings.Trim(pathSlice[0], "/"), "/")
-		if len(pParts) >= 2 {
-			form = pParts[0]
-			iconID = pParts[1]
-		}
-	}
-
-	// Method 2: Fallback to raw URL Path parsing (/api/icon/cube/457)
-	if form == "" || iconID == "" {
-		rawPath := strings.TrimPrefix(r.URL.Path, "/api/icon/")
-		rawPath = strings.Trim(rawPath, "/")
-		pParts := strings.Split(rawPath, "/")
-		if len(pParts) >= 2 {
-			form = pParts[0]
-			iconID = pParts[1]
-		}
-	}
-
-	if form == "" || iconID == "" {
+	parts := strings.Split(path, "/")
+	if len(parts) < 2 || parts[0] == "" || parts[1] == "" {
 		http.Error(w, `{"error":"invalid icon path"}`, http.StatusBadRequest)
 		return
 	}
 
+	form := parts[0]
+	iconID := parts[1]
 	col1 := r.URL.Query().Get("col1")
 	col2 := r.URL.Query().Get("col2")
 	glow := r.URL.Query().Get("glow")

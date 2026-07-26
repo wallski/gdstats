@@ -3,6 +3,14 @@
   "outputDirectory": "gdstats/dist",
   "rewrites": [
     {
+      "source": "/api/profile/:path*",
+      "destination": "/api/profile"
+    },
+    {
+      "source": "/api/icon/:path*",
+      "destination": "/api/icon"
+    },
+    {
       "source": "/((?!api/).*)",
       "destination": "/index.html"
     }
