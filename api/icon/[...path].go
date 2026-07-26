@@ -18,19 +18,37 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	path := r.URL.Query().Get("path")
-	if path == "" {
-		path = strings.TrimPrefix(r.URL.Path, "/api/icon/")
+	var form, iconID string
+
+	// Method 1: Try path array from Vercel query string (?path=cube&path=457)
+	pathSlice := r.URL.Query()["path"]
+	if len(pathSlice) >= 2 {
+		form = pathSlice[0]
+		iconID = pathSlice[1]
+	} else if len(pathSlice) == 1 {
+		pParts := strings.Split(strings.Trim(pathSlice[0], "/"), "/")
+		if len(pParts) >= 2 {
+			form = pParts[0]
+			iconID = pParts[1]
+		}
 	}
 
-	parts := strings.Split(path, "/")
-	if len(parts) < 2 {
+	// Method 2: Fallback to raw URL Path parsing (/api/icon/cube/457)
+	if form == "" || iconID == "" {
+		rawPath := strings.TrimPrefix(r.URL.Path, "/api/icon/")
+		rawPath = strings.Trim(rawPath, "/")
+		pParts := strings.Split(rawPath, "/")
+		if len(pParts) >= 2 {
+			form = pParts[0]
+			iconID = pParts[1]
+		}
+	}
+
+	if form == "" || iconID == "" {
 		http.Error(w, `{"error":"invalid icon path"}`, http.StatusBadRequest)
 		return
 	}
 
-	form := parts[0]
-	iconID := parts[1]
 	col1 := r.URL.Query().Get("col1")
 	col2 := r.URL.Query().Get("col2")
 	glow := r.URL.Query().Get("glow")
@@ -66,7 +84,10 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	client := &http.Client{Timeout: 10 * time.Second}
 
 	resp, err := client.Get(iconURL)
-	if err != nil {
+	if err != nil || resp.StatusCode != http.StatusOK {
+		if resp != nil {
+			resp.Body.Close()
+		}
 		fallbackURL := fmt.Sprintf("https://gdbrowser.com/icon/%s?form=%s", iconID, iconType)
 		if col1 != "" {
 			fallbackURL += "&col1=" + col1

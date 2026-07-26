@@ -20,15 +20,20 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Support both Vercel injected "id" query param and raw URL path
-	idStr := r.URL.Query().Get("id")
-	if idStr == "" {
-		idStr = strings.TrimPrefix(r.URL.Path, "/api/profile/")
-		idStr = strings.Trim(idStr, "/")
+	var accountID int
+
+	idSlice := r.URL.Query()["id"]
+	if len(idSlice) > 0 {
+		accountID, _ = strconv.Atoi(idSlice[0])
 	}
 
-	accountID, err := strconv.Atoi(idStr)
-	if err != nil || accountID == 0 {
+	if accountID == 0 {
+		pathStr := strings.TrimPrefix(r.URL.Path, "/api/profile/")
+		pathStr = strings.Trim(pathStr, "/")
+		accountID, _ = strconv.Atoi(pathStr)
+	}
+
+	if accountID == 0 {
 		http.Error(w, `{"error":"invalid account ID"}`, http.StatusBadRequest)
 		return
 	}
