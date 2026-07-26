@@ -1,4 +1,4 @@
-﻿import { motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 interface PlayerIconProps {
   icon?: number;
@@ -9,7 +9,7 @@ interface PlayerIconProps {
   form?: string;
 }
 
-const API_BASE = "https://firewall-textbooks-reminder-liability.trycloudflare.com";
+const API_BASE = "";
 
 export function PlayerIcon({
   icon = 1,

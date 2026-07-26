@@ -1,4 +1,4 @@
-﻿import { useEffect } from "react";
+import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
@@ -232,7 +232,7 @@ export function ProfilePage({ profile, loading, error, fetchProfile }: ProfilePa
                   style={{ border: "1px solid rgba(168,85,247,0.15)" }}
                 >
                   <img
-                    src={`https://firewall-textbooks-reminder-liability.trycloudflare.com/api/icon/${item.form}/${item.id}?col1=${profile.color1}&col2=${profile.color2}&glow=${profile.glow ? 1 : 0}`}
+                    src={`/api/icon/${item.form}/${item.id}?col1=${profile.color1}&col2=${profile.color2}&glow=${profile.glow ? 1 : 0}`}
                     alt={item.label}
                     className="w-12 h-12 object-contain"
                     style={{ imageRendering: "pixelated" }}
