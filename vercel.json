@@ -1,11 +1,6 @@
 {
   "buildCommand": "cd gdstats && npm install && npm run build",
   "outputDirectory": "gdstats/dist",
-  "functions": {
-    "api/**/*.go": {
-      "runtime": "go1.22.x"
-    }
-  },
   "routes": [
     { "src": "/api/(.*)", "dest": "/api/$1" },
     { "handle": "filesystem" },
