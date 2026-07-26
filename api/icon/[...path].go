@@ -9,8 +9,6 @@ import (
 )
 
 // Handler serves /api/icon/[...path].
-// Vercel injects the wildcard [...path] segments as the "path" query parameter.
-// e.g. /api/icon/cube/1?col1=0&col2=3 → path="cube/1", col1="0", col2="3"
 func Handler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "GET, OPTIONS")
@@ -20,8 +18,11 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Vercel injects wildcard segments as the "path" query param.
 	path := r.URL.Query().Get("path")
+	if path == "" {
+		path = strings.TrimPrefix(r.URL.Path, "/api/icon/")
+	}
+
 	parts := strings.Split(path, "/")
 	if len(parts) < 2 {
 		http.Error(w, `{"error":"invalid icon path"}`, http.StatusBadRequest)
@@ -34,7 +35,6 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	col2 := r.URL.Query().Get("col2")
 	glow := r.URL.Query().Get("glow")
 
-	// Map form names to gdicon API type names.
 	typeMap := map[string]string{
 		"cube":    "cube",
 		"ship":    "ship",
@@ -52,7 +52,6 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		iconType = "cube"
 	}
 
-	// Primary: oatmealine's gd-icon-renderer-web API.
 	iconURL := fmt.Sprintf("https://gdicon.oat.zone/icon.png?type=%s&value=%s", iconType, iconID)
 	if col1 != "" {
 		iconURL += "&color1=" + col1
@@ -68,7 +67,6 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 
 	resp, err := client.Get(iconURL)
 	if err != nil {
-		// Fallback: GDBrowser.
 		fallbackURL := fmt.Sprintf("https://gdbrowser.com/icon/%s?form=%s", iconID, iconType)
 		if col1 != "" {
 			fallbackURL += "&col1=" + col1

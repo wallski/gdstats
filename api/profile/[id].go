@@ -5,12 +5,12 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
+	"strings"
 
 	lib "github.com/wallski/gdstats/lib"
 )
 
 // Handler serves /api/profile/[id].
-// Vercel injects the dynamic [id] segment as the "id" query parameter.
 func Handler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "GET, OPTIONS")
@@ -20,7 +20,13 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Support both Vercel injected "id" query param and raw URL path
 	idStr := r.URL.Query().Get("id")
+	if idStr == "" {
+		idStr = strings.TrimPrefix(r.URL.Path, "/api/profile/")
+		idStr = strings.Trim(idStr, "/")
+	}
+
 	accountID, err := strconv.Atoi(idStr)
 	if err != nil || accountID == 0 {
 		http.Error(w, `{"error":"invalid account ID"}`, http.StatusBadRequest)

@@ -1,9 +1,10 @@
 {
   "buildCommand": "cd gdstats && npm install && npm run build",
   "outputDirectory": "gdstats/dist",
-  "routes": [
-    { "src": "/api/(.*)", "dest": "/api/$1" },
-    { "handle": "filesystem" },
-    { "src": "/(.*)", "dest": "/index.html" }
+  "rewrites": [
+    {
+      "source": "/((?!api/).*)",
+      "destination": "/index.html"
+    }
   ]
 }
