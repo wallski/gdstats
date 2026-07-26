@@ -3,6 +3,15 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
+# Go binaries
+*.exe
+gds-backend/server.exe
+
+# Node
+node_modules/
+gdstats/dist/
+
+
 # User-specific files
 *.rsuser
 *.suo
